@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/6.3.5/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.3.5/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.3.5/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.3.5/firebase-auth.js"></script>
+    
+    <!--Adding Bootstrap-->    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    
+    <title>Logs</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    
+    <div id="result"></div>
+
+    <button type="submit" class="btn btn-primary shadow" id="btnLogout">Logout</button>
+        
+        
+        <table id ="orders" style ="width:50%">
+          <tr>
+            <th>ONLINE_USERS</th>
+           
+          </tr>
+          
+        </table>
+      </body>
+    </html>
+    <style>
+    body {
+      font-family: "Benton Sans", "Helvetica Neue", helvetica, arial, sans-serif;
+      margin: 2em;
+    }
+    
+    h1 {
+      font-style: italic;
+      color: #373fff;
+    }
+    
+    #orders{
+     border:2px solid black; 
+    }
+    th{
+     border: 1px solid black;
+      border-left:none;
+      border-right:none;
+    }
+    
+    
+    </style>
+
+
+
+
+
+<script>
+    document.getElementById("result").innerHTML = sessionStorage.getItem("id");
+
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+      apiKey: "AIzaSyB8AhMx5Zsd_ZB3vfEaRfE8WW8bGpuvJ0k",
+      authDomain: "assignment1-7520a.firebaseapp.com",
+      databaseURL: "https://assignment1-7520a.firebaseio.com",
+      projectId: "assignment1-7520a",
+      storageBucket: "assignment1-7520a.appspot.com",
+      messagingSenderId: "724277046692",
+      appId: "1:724277046692:web:aaf56daf521948654da531",
+      measurementId: "G-243YN6B3BF"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    const database = firebase.firestore();
+    const logsCollection = database.collection('logs');
+    const query = logsCollection.where('logout_time', '==',"");
+    var content = "";
+    query.get().then(snapshot => {
+        snapshot.forEach(user => {
+            content +='<tr>';
+                content += '<td>' +user.data().email_id+ '</td>';
+                content += '</tr>';
+            });
+            $('#orders').append(content);
+        });
+    
+    btnLogout.addEventListener('click', e => {
+    e.preventDefault();
+    const query = logsCollection.where('unique_id', '==', sessionStorage.getItem("id"));
+    query.get().then(snapshot => {
+      snapshot.forEach(user => {
+        console.log(user.id, ' => ', user.data());
+        const date = new Date();
+        const timestamp = date.getTime();
+        const UID = user.id;
+        const u = UID.concat('_',timestamp);
+        console.log(u);
+        logsCollection.doc(user.id).update({
+            'logout_time':date
+
+  });
+ 
+      });
+    })
+    .catch(error => {
+      console.error(error);
+    });
+    
+  });
+        
+  </script>

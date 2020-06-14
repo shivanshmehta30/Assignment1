@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Firebase Cloud Firestore Tutorial - Web</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <link rel="shortcut icon" href="">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <main>
+    <form>
+        <label for="emailId">Email ID</label><br>
+        <input type="text" name="emailId" id="emailId"><br>
+        <label for="firstName">First Name</label><br>
+        <input type="text" name="firstName" id="firstName"><br>
+        <label for="lastName">Last Name</label><br>
+        <input type="text" name="lastName" id="lastName"><br>  
+        <label for="age">Age</label><br>
+        <input type="number" name="age" id="age"><br>
+        <label for="password">Password</label><br>
+        <input type="password" name="password" id="password"><br> 
+        <button id="addBtn" class="btn waves-effect waves-light">Add</button>
+        <a href="./index.html">GO TO LOGIN</a>
+        
+    </form>
+  </main>
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/7.3.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.3.0/firebase-firestore.js"></script>
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+
+<script>
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyB8AhMx5Zsd_ZB3vfEaRfE8WW8bGpuvJ0k",
+    authDomain: "assignment1-7520a.firebaseapp.com",
+    databaseURL: "https://assignment1-7520a.firebaseio.com",
+    projectId: "assignment1-7520a",
+    storageBucket: "assignment1-7520a.appspot.com",
+    messagingSenderId: "724277046692",
+    appId: "1:724277046692:web:aaf56daf521948654da531",
+    measurementId: "G-243YN6B3BF"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+</script>
+  <script src="./function.js"></script>
+</body>
+</html>
